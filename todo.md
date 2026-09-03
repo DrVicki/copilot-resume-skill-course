@@ -79,6 +79,6 @@
 - [x] Align the public curriculum with all four current Proofwork lessons and link to the live interactive course.
 - [x] Add a project-local `pages:check` validation command and deployment guide.
 - [x] Run the Pages validator, TypeScript check, production build, and `git diff --check`.
-- [ ] Commit and push the Pages package to the confirmed repository and branch.
-- [ ] Configure branch-based `main` → `/docs` publishing if the repository permissions allow it.
-- [ ] Verify the public GitHub Pages URL and report any one-time manual repository setting still required.
+- [x] Commit and push the Pages package to the confirmed repository and branch.
+- [x] Configure branch-based `main` → `/docs` publishing with the repository owner’s one-time settings change.
+- [x] Verify the public GitHub Pages URL, relative assets, curriculum accordion, and live-course links.
