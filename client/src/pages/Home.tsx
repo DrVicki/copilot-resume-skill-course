@@ -47,7 +47,7 @@ export default function Home() {
             <a href="#why">Why a system</a>
             <a href="#method">The method</a>
             <a href="#course">Course</a>
-            <a href="http://34.26.38.206/" target="_blank" rel="noreferrer" className="course-switch-link">
+            <a href="https://drvicki.github.io/proofroom-interview-course/" className="course-switch-link">
               Interview lab <ArrowRight size={14} />
             </a>
           </nav>
@@ -158,9 +158,7 @@ export default function Home() {
             </div>
             <a
               className="crossover-action"
-              href="http://34.26.38.206/"
-              target="_blank"
-              rel="noreferrer"
+              href="https://drvicki.github.io/proofroom-interview-course/"
             >
               Explore Proofroom <ArrowRight size={18} />
             </a>

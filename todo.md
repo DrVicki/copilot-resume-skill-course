@@ -56,20 +56,22 @@
 
 ## Linked Learning Path
 
-- [ ] Add a persistent Proofroom navigation link to the Proofwork header.
-- [ ] Add a responsive Proofroom promotional banner to the Proofwork course.
-- [ ] Preserve the complete résumé-course workflow and saved student state.
-- [ ] Validate the reciprocal URL, mobile layout, TypeScript, build, and runtime logs.
-- [ ] Save and publish the updated Proofwork checkpoint.
+- [x] Add a persistent Proofroom navigation link to the Proofwork header.
+- [x] Add a responsive Proofroom promotional banner to the Proofwork course.
+- [x] Preserve the complete résumé-course workflow and saved student state.
+- [x] Validate the reciprocal URL, mobile layout, TypeScript, build, and runtime logs.
+- [x] Save and publish the updated Proofwork checkpoint.
 
 ## Independent Proofroom Task and GitHub Handoff
 
-- [ ] Review the Manus task-creation workflow and GitHub integration requirements.
-- [ ] Create a private GitHub repository dedicated to the standalone Proofroom source.
-- [ ] Commit and push the validated standalone course without build output, dependency folders, or secrets.
-- [ ] Create a new Manus task that identifies Proofroom as an independent website project and includes the repository handoff context.
-- [ ] Finish reciprocal navigation using the independent Proofroom destination.
-- [ ] Validate both properties and deliver the new task and repository details.
+- [x] Review the Manus task-creation workflow and GitHub integration requirements.
+- [x] Create a private GitHub repository dedicated to the standalone Proofroom source.
+- [x] Commit and push the validated standalone course without build output, dependency folders, or secrets.
+- [x] Create a new private Manus task that identifies Proofroom as an independent website project and includes the repository handoff context.
+- [x] Finish reciprocal navigation using the independent Proofroom destination.
+- [x] Validate both properties and deliver the new task and repository details.
+
+- [x] Replace temporary Proofroom IP links with the dedicated Proofroom GitHub Pages URL after publication.
 
 ## Proofwork GitHub Pages Companion
 
