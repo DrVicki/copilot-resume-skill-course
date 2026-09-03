@@ -7,7 +7,11 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
-import { courseMeta, lessons, type Lesson } from "@/data/course";
+import {
+  courseMeta as defaultCourseMeta,
+  lessons as defaultLessons,
+  type Lesson,
+} from "@/data/course";
 import {
   ArrowLeft,
   ArrowRight,
@@ -40,7 +44,28 @@ type CourseState = {
   work: Record<string, WorkEntry>;
 };
 
-const STORAGE_KEY = "proofwork-course-state-v1";
+type CourseMeta = {
+  title: string;
+  shortTitle: string;
+  instructor: string;
+  duration: string;
+  level: string;
+  lessons: number;
+};
+
+export type CourseStudioProps = {
+  meta?: CourseMeta;
+  courseLessons?: Lesson[];
+  storageKey?: string;
+  artifactSlug?: string;
+  variant?: "evidence-desk" | "proofroom";
+  introHeading?: string;
+  introCopy?: string;
+  plateLabel?: string;
+  academicIntegrityNote?: string;
+  certificateSummary?: string;
+  privateFilesLabel?: string;
+};
 
 const emptyEntry = (): WorkEntry => ({
   notes: "",
@@ -49,10 +74,10 @@ const emptyEntry = (): WorkEntry => ({
   completed: false,
 });
 
-const initialState = (): CourseState => ({
+const initialState = (courseLessons: Lesson[]): CourseState => ({
   studentName: "",
   courseSection: "",
-  work: Object.fromEntries(lessons.map((lesson) => [lesson.id, emptyEntry()])),
+  work: Object.fromEntries(courseLessons.map((lesson) => [lesson.id, emptyEntry()])),
 });
 
 function buildLessonFile(
@@ -60,11 +85,13 @@ function buildLessonFile(
   entry: WorkEntry,
   studentName: string,
   courseSection: string,
+  meta: CourseMeta,
+  academicIntegrityNote: string,
 ) {
   const completedAt = entry.completed ? new Date().toLocaleDateString() : "Not marked complete";
 
-  return `${courseMeta.shortTitle} — Canvas Lesson Submission
-Creator and Instructor: ${courseMeta.instructor}
+  return `${meta.shortTitle} — Canvas Lesson Submission
+Creator and Instructor: ${meta.instructor}
 
 STUDENT
 Name: ${studentName || "[Enter your name]"}
@@ -109,7 +136,7 @@ DELIVERABLE CHECK
 
 ${lesson.deliverable}
 
-Academic integrity note: Review every resume claim yourself. Do not submit confidential, proprietary, or personally sensitive material to Canvas.
+Academic integrity and privacy note: ${academicIntegrityNote}
 `;
 }
 
@@ -134,24 +161,112 @@ function filenameName(name: string) {
   return cleaned || "student";
 }
 
-export default function CourseStudio() {
+function FieldPlate({ lesson, plateLabel }: { lesson: Lesson; plateLabel: string }) {
+  const mode =
+    lesson.number === "02" ? "stories" : lesson.number === "03" ? "mock" : "debrief";
+
+  return (
+    <figure className={`lesson-visual lesson-visual--diagram lesson-visual--${mode}`}>
+      <div className="field-plate-canvas" role="img" aria-label={lesson.artAlt}>
+        {mode === "stories" ? (
+          <>
+            <div className="story-card-orbit" aria-hidden="true">
+              {Array.from({ length: 6 }, (_, index) => (
+                <span className="story-proof-card" key={index}>
+                  <i />
+                  <i />
+                  <i />
+                </span>
+              ))}
+              <span className="story-proof-core">
+                <i />
+                <i />
+                <i />
+              </span>
+            </div>
+            <span className="plate-verify-tab" aria-hidden="true" />
+          </>
+        ) : null}
+
+        {mode === "mock" ? (
+          <>
+            <div className="mock-stage" aria-hidden="true">
+              <span className="mock-chair mock-chair--candidate" />
+              <span className="mock-light" />
+              <span className="mock-chair mock-chair--interviewer" />
+            </div>
+            <div className="question-sequence" aria-hidden="true">
+              <span className="sequence-node is-live" />
+              <i />
+              <span className="sequence-node" />
+              <i />
+              <span className="sequence-node is-proof" />
+              <i />
+              <span className="sequence-node" />
+            </div>
+          </>
+        ) : null}
+
+        {mode === "debrief" ? (
+          <div className="scorecard-comparison" aria-hidden="true">
+            {["round-one", "round-two"].map((round) => (
+              <span className={`diagram-scorecard ${round}`} key={round}>
+                <i className="scorecard-clip" />
+                {Array.from({ length: 5 }, (_, index) => (
+                  <i className="scorecard-row" key={index} />
+                ))}
+                <i className="scorecard-proof" />
+              </span>
+            ))}
+            <span className="revision-loop" />
+          </div>
+        ) : null}
+
+        <span className="plate-registration plate-registration--one" aria-hidden="true" />
+        <span className="plate-registration plate-registration--two" aria-hidden="true" />
+      </div>
+      <figcaption>
+        <span>Field plate {lesson.number}</span>
+        <span>{plateLabel}</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+export default function CourseStudio({
+  meta = defaultCourseMeta,
+  courseLessons = defaultLessons,
+  storageKey = "proofwork-course-state-v1",
+  artifactSlug = "proofwork",
+  variant = "evidence-desk",
+  introHeading = "Build the system as you learn.",
+  introCopy =
+    "Each lesson adds one working part to your Resume Proofwork agent. Your notes, reflections, and completion evidence stay in this browser until you download them.",
+  plateLabel = "Evidence-led workflow",
+  academicIntegrityNote =
+    "Review every resume claim yourself. Do not submit confidential, proprietary, or personally sensitive material to Canvas.",
+  certificateSummary =
+    "The learner completed all four action assignments and produced a reusable, evidence-led Microsoft Copilot workflow for honest resume tailoring.",
+  privateFilesLabel = "career files",
+}: CourseStudioProps = {}) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [state, setState] = useState<CourseState>(initialState);
+  const [state, setState] = useState<CourseState>(() => initialState(courseLessons));
   const [hydrated, setHydrated] = useState(false);
   const workspaceRef = useRef<HTMLDivElement>(null);
-  const activeLesson = lessons[activeIndex];
+  const initialCourseState = useMemo(() => initialState(courseLessons), [courseLessons]);
+  const activeLesson = courseLessons[activeIndex];
   const activeEntry = state.work[activeLesson.id] ?? emptyEntry();
 
   useEffect(() => {
     try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
+      const stored = window.localStorage.getItem(storageKey);
       if (stored) {
         const parsed = JSON.parse(stored) as Partial<CourseState>;
         setState({
-          ...initialState(),
+          ...initialCourseState,
           ...parsed,
           work: {
-            ...initialState().work,
+            ...initialCourseState.work,
             ...(parsed.work ?? {}),
           },
         });
@@ -161,18 +276,18 @@ export default function CourseStudio() {
     } finally {
       setHydrated(true);
     }
-  }, []);
+  }, [initialCourseState, storageKey]);
 
   useEffect(() => {
     if (!hydrated) return;
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [hydrated, state]);
+    window.localStorage.setItem(storageKey, JSON.stringify(state));
+  }, [hydrated, state, storageKey]);
 
   const completedCount = useMemo(
-    () => lessons.filter((lesson) => state.work[lesson.id]?.completed).length,
-    [state.work],
+    () => courseLessons.filter((lesson) => state.work[lesson.id]?.completed).length,
+    [courseLessons, state.work],
   );
-  const progress = Math.round((completedCount / lessons.length) * 100);
+  const progress = Math.round((completedCount / courseLessons.length) * 100);
 
   const updateActiveEntry = (changes: Partial<WorkEntry>) => {
     setState((current) => ({
@@ -205,28 +320,32 @@ export default function CourseStudio() {
 
   const downloadLesson = () => {
     downloadText(
-      `${filenameName(state.studentName)}-proofwork-lesson-${activeLesson.number}.txt`,
+      `${filenameName(state.studentName)}-${artifactSlug}-lesson-${activeLesson.number}.txt`,
       buildLessonFile(
         activeLesson,
         activeEntry,
         state.studentName,
         state.courseSection,
+        meta,
+        academicIntegrityNote,
       ),
     );
     toast.success(`Lesson ${activeLesson.number} submission downloaded.`);
   };
 
   const downloadAll = () => {
-    const sections = lessons.map((lesson) =>
+    const sections = courseLessons.map((lesson) =>
       buildLessonFile(
         lesson,
         state.work[lesson.id] ?? emptyEntry(),
         state.studentName,
         state.courseSection,
+        meta,
+        academicIntegrityNote,
       ),
     );
     downloadText(
-      `${filenameName(state.studentName)}-proofwork-complete-course.txt`,
+      `${filenameName(state.studentName)}-${artifactSlug}-complete-course.txt`,
       sections.join("\n\n\n############################################################\n\n\n"),
     );
     toast.success("Complete Canvas submission bundle downloaded.");
@@ -239,7 +358,7 @@ export default function CourseStudio() {
       day: "numeric",
     });
     downloadText(
-      `${filenameName(state.studentName)}-proofwork-certificate.txt`,
+      `${filenameName(state.studentName)}-${artifactSlug}-certificate.txt`,
       `CERTIFICATE OF COMPLETION
 
 This certifies that
@@ -248,29 +367,32 @@ ${state.studentName || "[Student name]"}
 
 completed the micro-course
 
-${courseMeta.title}
+${meta.title}
 
 on ${date}.
 
-Created and instructed by ${courseMeta.instructor}
+Created and instructed by ${meta.instructor}
 
-The learner completed all four action assignments and produced a reusable, evidence-led Microsoft Copilot workflow for honest resume tailoring.
+${certificateSummary}
 `,
     );
     toast.success("Completion certificate downloaded.");
   };
 
   return (
-    <section className="course-section" id="course" aria-labelledby="course-heading">
+    <section
+      className={`course-section course-section--${variant}`}
+      id="course"
+      aria-labelledby="course-heading"
+    >
       <div className="container">
         <div className="course-intro">
           <div>
             <p className="section-kicker">Your working course</p>
-            <h2 id="course-heading">Build the system as you learn.</h2>
+            <h2 id="course-heading">{introHeading}</h2>
           </div>
           <p>
-            Each lesson adds one working part to your Resume Proofwork agent. Your notes,
-            reflections, and completion evidence stay in this browser until you download them.
+            {introCopy}
           </p>
         </div>
 
@@ -304,7 +426,7 @@ The learner completed all four action assignments and produced a reusable, evide
             </div>
             <Progress value={progress} className="course-progress" />
             <span className="progress-caption">
-              {completedCount} of {lessons.length} lessons complete
+              {completedCount} of {courseLessons.length} lessons complete
             </span>
           </div>
         </div>
@@ -313,7 +435,7 @@ The learner completed all four action assignments and produced a reusable, evide
           <aside className="lesson-rail" aria-label="Course lessons">
             <div className="rail-label">Course index</div>
             <nav>
-              {lessons.map((lesson, index) => {
+              {courseLessons.map((lesson, index) => {
                 const isActive = index === activeIndex;
                 const isComplete = state.work[lesson.id]?.completed;
                 return (
@@ -367,13 +489,17 @@ The learner completed all four action assignments and produced a reusable, evide
             </header>
 
             {activeIndex > 0 ? (
-              <figure className="lesson-visual">
-                <img src={activeLesson.art} alt={activeLesson.artAlt} />
-                <figcaption>
-                  <span>Field plate {activeLesson.number}</span>
-                  <span>Evidence-led workflow</span>
-                </figcaption>
-              </figure>
+              activeLesson.art ? (
+                <figure className="lesson-visual">
+                  <img src={activeLesson.art} alt={activeLesson.artAlt} />
+                  <figcaption>
+                    <span>Field plate {activeLesson.number}</span>
+                    <span>{plateLabel}</span>
+                  </figcaption>
+                </figure>
+              ) : (
+                <FieldPlate lesson={activeLesson} plateLabel={plateLabel} />
+              )
             ) : null}
 
             <div className="objective-band">
@@ -536,11 +662,11 @@ The learner completed all four action assignments and produced a reusable, evide
                 <ArrowLeft size={17} /> Previous lesson
               </Button>
               <span>
-                {activeIndex + 1} / {lessons.length}
+                {activeIndex + 1} / {courseLessons.length}
               </span>
               <Button
                 variant="ghost"
-                disabled={activeIndex === lessons.length - 1}
+                disabled={activeIndex === courseLessons.length - 1}
                 onClick={() => goToLesson(activeIndex + 1)}
               >
                 Next lesson <ArrowRight size={17} />
@@ -558,13 +684,13 @@ The learner completed all four action assignments and produced a reusable, evide
             <h3>
               {progress === 100
                 ? "Your complete course bundle is ready."
-                : `${lessons.length - completedCount} lesson${
-                    lessons.length - completedCount === 1 ? "" : "s"
+                : `${courseLessons.length - completedCount} lesson${
+                    courseLessons.length - completedCount === 1 ? "" : "s"
                   } left to complete.`}
             </h3>
             <p>
               Download one combined text file for Canvas. At 100%, you can also download a
-              completion certificate credited to {courseMeta.instructor}.
+              completion certificate credited to {meta.instructor}.
             </p>
           </div>
           <div className="completion-actions">
@@ -587,7 +713,9 @@ The learner completed all four action assignments and produced a reusable, evide
             <li>Enter your name and course section before downloading.</li>
             <li>Review the file and remove confidential or proprietary information.</li>
             <li>Use the lesson number in the filename to match the Canvas assignment.</li>
-            <li>Upload the downloaded .txt file, then keep your original career files private.</li>
+            <li>
+              Upload the downloaded .txt file, then keep your original {privateFilesLabel} private.
+            </li>
           </ol>
         </div>
       </div>

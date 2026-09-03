@@ -90,3 +90,96 @@ The brand is **Proofwork**: a custom narrow wordmark paired with a bold symbol m
 ## Implementation Commitment
 
 Every component will be judged against one question: **Does this choice reinforce the course as an evidence-led editorial tool, or dilute it into a generic AI landing page?**
+
+---
+
+# Companion Brainstorm: Copilot Interview Practice Lab
+
+## Companion Direction 1
+
+**Theme Name:** The Proofroom
+
+**Very Brief Intro:** An editorial interview studio organized around one illuminated question, one evidence-backed answer, and a visible debrief loop. It feels focused and quietly theatrical without turning practice into performance theater.
+
+**Probability:** 0.008
+
+## Companion Direction 2
+
+**Theme Name:** Signal Booth
+
+**Very Brief Intro:** A mid-century broadcast rehearsal room with cue cards, timing marks, transcript strips, and restrained audio-console geometry. It treats clear interviewing as a signal-quality problem.
+
+**Probability:** 0.064
+
+## Companion Direction 3
+
+**Theme Name:** Counsel Table
+
+**Very Brief Intro:** A rigorous deposition-inspired workspace built from indexed exhibits, question tabs, and exact transcript annotations. It makes follow-up questions feel forensic, but risks becoming too severe for an encouraging course.
+
+**Probability:** 0.023
+
+## Chosen Companion Direction: The Proofroom
+
+### Design Movement
+
+The Proofroom combines **1960s editorial portraiture**, **International Typographic Style**, and the physical logic of a carefully lit interview set. It keeps the parent brand’s evidence discipline while shifting from document archive to rehearsal room.
+
+### Core Principles
+
+1. **One question in focus:** The composition always establishes what the learner is answering now and what remains outside the frame.
+2. **Evidence under the performance:** Transcript lines, proof-story cards, and source ticks remain visible beneath every polished response.
+3. **Silence has structure:** Generous dark space and deliberate pauses make the course feel calm rather than crowded.
+4. **Debrief, then repeat:** Every visual sequence returns from live practice to evidence review and a smaller next-round target.
+
+### Color Philosophy
+
+The parent brand’s warm paper and deep blue-black remain the foundation. A new **Room Red** introduces the energy of an illuminated recording lamp and marks live-round states, while Proof Lime remains reserved for verified evidence and completed practice. Cobalt identifies Copilot-assisted analysis. Red and lime never become decorative gradients; they distinguish live pressure from earned proof.
+
+### Layout Paradigm
+
+The page behaves like a rehearsal studio seen in section. A wide interview stage carries the current lesson while a narrow transcript gutter records question order, evidence checks, and completion state. Large question marks, chair-like vertical silhouettes, time codes, and offset scorecards replace the resume course’s document-stack emphasis. Mobile layouts collapse into a single transcript flow with the active question and progress controls kept adjacent.
+
+### Signature Elements
+
+1. **Question aperture:** A large outlined question mark or spotlight circle frames the active learning problem.
+2. **Transcript gutter:** Monospaced time-code labels and short evidence checks create a persistent interview record.
+3. **Room lamp:** A precise Room Red signal marks live practice; it turns Proof Lime only after the learner completes the evidence debrief.
+
+### Interaction Philosophy
+
+Controls should feel like beginning, pausing, or reviewing a practice round. Lesson selection resembles choosing a segment from a transcript. Completion checks use an explicit two-state signal rather than celebratory animation. Copy and download actions confirm immediately and remain reversible.
+
+### Animation
+
+Use a 220 ms aperture reveal for major lesson headers, a 140 ms Room Red signal change for live states, and 30–50 ms staggered transcript-line entries. Avoid pulsing or looping recording lights. Freeze all nonessential motion when reduced motion is preferred.
+
+### Typography System
+
+Retain **Newsreader** for editorial authority, **Manrope** for readable instruction, and **IBM Plex Mono** for time codes, prompt text, source notes, and transcript labels. Companion headlines use tighter line spacing and more upright roman serif than the résumé course, reserving italics for reflective questions and the candidate’s internal reasoning.
+
+### Brand Essence
+
+**Positioning:** A repeatable interview-practice studio for job seekers who want Copilot to challenge their evidence without writing the performance for them.
+
+**Personality:** Composed, probing, humane.
+
+### Brand Voice
+
+Headlines sound like a perceptive coach setting one clear condition. Calls to action name a rehearsal behavior rather than promise confidence.
+
+**Example headline:** “Practice the room. Keep the evidence.”
+
+**Example CTA:** “Run one honest round.”
+
+### Wordmark & Logo
+
+The Proofwork parent mark remains in global navigation. The companion uses a secondary **Proofroom aperture**: two offset chair-like brackets forming a question mark in negative space, paired with a single round Room Red signal. The symbol contains no text and remains recognizable at favicon and lesson-tab size.
+
+### Signature Companion Color
+
+**Room Red — `#F04E3E`**. It appears only for live-practice cues, unresolved evidence checks, and the moment a question moves from preparation into response.
+
+## Companion Implementation Commitment
+
+Every companion component will be judged against one question: **Does this feel like an evidence-led rehearsal room, or a generic interview-question generator?**

@@ -47,6 +47,7 @@ export default function Home() {
             <a href="#why">Why a system</a>
             <a href="#method">The method</a>
             <a href="#course">Course</a>
+            <a href="/interview-prep">Interview lab</a>
           </nav>
           <Button onClick={scrollToCourse} className="header-cta">
             Start the course <ArrowRight size={16} />
@@ -331,7 +332,7 @@ export default function Home() {
             {courseMeta.title}<br />
             Created and instructed by <strong>{courseMeta.instructor}</strong>
           </p>
-          <a href="#top">Back to top <ArrowRight size={15} /></a>
+          <a href="/interview-prep">Interview lab <ArrowRight size={15} /></a>
         </div>
       </footer>
     </div>
