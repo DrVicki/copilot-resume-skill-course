@@ -53,3 +53,32 @@
 - [x] Verify the standalone Proofroom site on desktop and mobile with working notes, progress, downloads, and certificate.
 - [x] Run TypeScript, production build, runtime log, and broken-request checks for both sites.
 - [x] Save the final Proofwork checkpoint and deliver the independently deployed Proofroom property with maintenance notes.
+
+## Linked Learning Path
+
+- [ ] Add a persistent Proofroom navigation link to the Proofwork header.
+- [ ] Add a responsive Proofroom promotional banner to the Proofwork course.
+- [ ] Preserve the complete résumé-course workflow and saved student state.
+- [ ] Validate the reciprocal URL, mobile layout, TypeScript, build, and runtime logs.
+- [ ] Save and publish the updated Proofwork checkpoint.
+
+## Independent Proofroom Task and GitHub Handoff
+
+- [ ] Review the Manus task-creation workflow and GitHub integration requirements.
+- [ ] Create a private GitHub repository dedicated to the standalone Proofroom source.
+- [ ] Commit and push the validated standalone course without build output, dependency folders, or secrets.
+- [ ] Create a new Manus task that identifies Proofroom as an independent website project and includes the repository handoff context.
+- [ ] Finish reciprocal navigation using the independent Proofroom destination.
+- [ ] Validate both properties and deliver the new task and repository details.
+
+## Proofwork GitHub Pages Companion
+
+- [x] Confirm the exact GitHub repository remote, default branch, and current Pages configuration.
+- [x] Define the boundary between the public GitHub Pages companion and the live interactive Proofwork course.
+- [x] Create `docs/index.html`, `docs/404.html`, `docs/.nojekyll`, and relative CSS/JavaScript assets.
+- [x] Align the public curriculum with all four current Proofwork lessons and link to the live interactive course.
+- [x] Add a project-local `pages:check` validation command and deployment guide.
+- [x] Run the Pages validator, TypeScript check, production build, and `git diff --check`.
+- [ ] Commit and push the Pages package to the confirmed repository and branch.
+- [ ] Configure branch-based `main` → `/docs` publishing if the repository permissions allow it.
+- [ ] Verify the public GitHub Pages URL and report any one-time manual repository setting still required.

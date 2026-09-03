@@ -47,6 +47,9 @@ export default function Home() {
             <a href="#why">Why a system</a>
             <a href="#method">The method</a>
             <a href="#course">Course</a>
+            <a href="http://34.26.38.206/" target="_blank" rel="noreferrer" className="course-switch-link">
+              Interview lab <ArrowRight size={14} />
+            </a>
           </nav>
           <Button onClick={scrollToCourse} className="header-cta">
             Start the course <ArrowRight size={16} />
@@ -138,6 +141,31 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <aside className="course-crossover course-crossover--proofroom" aria-labelledby="proofroom-promo-title">
+          <div className="container crossover-inner">
+            <div className="crossover-label">
+              <span>Course 02</span>
+              <strong>Proofroom</strong>
+            </div>
+            <div className="crossover-copy">
+              <p>Continue the evidence-led job-search system</p>
+              <h2 id="proofroom-promo-title">Turn the tailored resume into interview proof.</h2>
+              <span>
+                Build a reusable Microsoft Copilot practice room that asks one question at a time,
+                probes your evidence, and debriefs what your answers actually prove.
+              </span>
+            </div>
+            <a
+              className="crossover-action"
+              href="http://34.26.38.206/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Explore Proofroom <ArrowRight size={18} />
+            </a>
+          </div>
+        </aside>
 
         <section className="problem-section" id="why" aria-labelledby="problem-heading">
           <div className="container problem-grid">
