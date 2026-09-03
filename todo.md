@@ -41,3 +41,15 @@
 - [x] Run TypeScript and production-build checks and inspect runtime logs.
 - [x] Document any reusable-skill gaps discovered during the test and refine the skill if needed.
 - [x] Deliver one final companion-course checkpoint and report the skill-test outcome.
+
+## Proofroom Standalone Separation
+
+- [x] Audit every Proofroom route, data file, shared component dependency, style block, asset reference, and navigation link in the current Proofwork project.
+- [x] Preserve the latest stable dual-course checkpoint as the migration source.
+- [x] Create an independent Proofroom project with its own root route, metadata, browser state key, artifacts, design file, and course workspace.
+- [x] Ensure the Proofroom site contains no Proofwork résumé-course navigation, copy, state, or downloads.
+- [x] Remove the `/interview-prep` route, companion navigation, and Proofroom course data from the Proofwork application.
+- [x] Verify the Proofwork site remains a complete résumé-only course with working notes, progress, downloads, and certificate.
+- [x] Verify the standalone Proofroom site on desktop and mobile with working notes, progress, downloads, and certificate.
+- [x] Run TypeScript, production build, runtime log, and broken-request checks for both sites.
+- [x] Save the final Proofwork checkpoint and deliver the independently deployed Proofroom property with maintenance notes.
